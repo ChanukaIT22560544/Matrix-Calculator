@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleMatrix2() {
+            const operation = document.getElementById('operation').value;
+            const matrix2Field = document.getElementById('matrix2-field');
+            matrix2Field.style.display = (operation === 'determinant' || operation === 'inverse') ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+   <div class="container">
+    <form  method="post" oninput="toggleMatrix2()">
+        <h1>Matrix Calculator</h1>
+        <label for="operation">Choose an operation:</label><br>
+        <select name="operation" id="operation" onchange="toggleMatrix2()">
+            <option value="addition">Addition</option>
+            <option value="subtraction">Subtraction</option>
+            <option value="multiplication">Multiplication</option>
+            <option value="determinant">Determinant</option>
+            <option value="inverse">Inverse</option>
+        </select><br><br>
+        <label for="matrix1">Matrix A:</label><br>
+        <textarea name="matrix1" id="matrix1" rows="4" cols="30" placeholder='[[1, 2], [3, 4]]' required></textarea><br><br>
+
+        <div id="matrix2-field">
+            <label for="matrix2">Matrix B:</label><br>
+            <textarea name="matrix2" id="matrix2" rows="4" cols="30" placeholder='[[5, 6], [7, 8]]'></textarea><br><br>
+        </div>
+
+        
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <pre>{{ result }}</pre>
+    {% endif %}
+
+    {% if error_message %}
+        <h2>Error:</h2>
+        <pre>{{ error_message }}</pre>
+    {% endif %}
+</div>
+</body>
+</html>
